@@ -3,11 +3,14 @@
 import Link from 'next/link';
 import { MdCurrencyExchange } from 'react-icons/md';
 import { usePathname } from 'next/navigation';
+import { useCurrencyStore } from '@/lib/stores/currencyStore';
 
 import styles from './Header.module.css';
+import SelectRates from '../SelectRates/SelectRates';
 
 export default function Header() {
   const pathname = usePathname();
+  const { baseCurrency } = useCurrencyStore();
 
   return (
     <header className={styles.header}>
@@ -28,8 +31,9 @@ export default function Header() {
           </ul>
         </nav>
       </div>
+      {baseCurrency && <SelectRates baseCurrency={baseCurrency} />}
 
-      {/* ✔ Add base currency here !!! */}
+      {baseCurrency && <p> Your base currency: {baseCurrency}</p>}
     </header>
   );
 }

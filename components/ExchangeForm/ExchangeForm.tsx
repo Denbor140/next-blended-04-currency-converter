@@ -3,10 +3,30 @@
 import { RiExchangeDollarFill } from 'react-icons/ri';
 
 import styles from './ExchangeForm.module.css';
+import { useCurrencyStore } from '@/lib/stores/currencyStore';
+import { exchangeCurrency } from '@/lib/service/exchangeAPI';
 
 export default function ExchangeForm() {
+  const { setExchangeInfo, setIsLoading, setIsError } = useCurrencyStore();
+
+  const handleSubmit = async (formData: FormData) => {
+    const value = formData.get('currency') as string;
+    const [amount, from, , to] = value.split(' ');
+
+    try {
+      setIsLoading(true);
+      setIsError(null);
+      const data = await exchangeCurrency({ amount, from, to });
+      setExchangeInfo(data);
+    } catch (error) {
+      setIsError('Failed to exchange');
+    } finally {
+      setIsLoading(false);
+    }
+  };
+
   return (
-    <form className={styles.form}>
+    <form action={handleSubmit} className={styles.form}>
       <button className={styles.button} type="submit">
         <RiExchangeDollarFill className={styles.icon} />
       </button>
