@@ -2,6 +2,12 @@ import axios from 'axios';
 
 const apiKey = process.env.NEXT_PUBLIC_API_LAYER_API_KEY;
 
+interface exchangeCurrencyProps {
+  amount: string;
+  from: string;
+  to: string;
+}
+
 type Rates = [string, number][];
 
 const instance = axios.create({
@@ -9,7 +15,7 @@ const instance = axios.create({
   headers: { apikey: apiKey ?? '' },
 });
 
-export const exchangeCurrency = async (credentials) => {
+export const exchangeCurrency = async (credentials: exchangeCurrencyProps) => {
   const {
     data: { query, info, result },
   } = await instance.get('/convert', {
