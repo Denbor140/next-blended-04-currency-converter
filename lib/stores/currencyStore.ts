@@ -1,8 +1,6 @@
 import { create } from 'zustand';
 import { persist } from 'zustand/middleware';
 
-const apiKey = process.env.NEXT_PUBLIC_API_LAYER_API_KEY;
-
 export interface ExchangeInfo {
   from: string;
   to: string;

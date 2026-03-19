@@ -27,8 +27,6 @@ export default function RatesPage() {
     filter,
   } = useCurrencyStore();
 
-  if (!hasHydrated) return null;
-
   const fileredRates = rates
     .filter(([key]) => key !== baseCurrency && key.toLowerCase().includes(filter))
     .map(([key, value]) => ({ key, value: (1 / value).toFixed(2) }));
@@ -52,6 +50,8 @@ export default function RatesPage() {
 
     fetchRates();
   }, [baseCurrency, setRates, setIsLoading, setIsError]);
+
+  if (!hasHydrated) return null;
 
   return (
     <main className={css.main}>

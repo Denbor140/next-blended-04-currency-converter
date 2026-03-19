@@ -20,6 +20,7 @@ export default function ExchangeForm() {
       setExchangeInfo(data);
     } catch (error) {
       setIsError('Failed to exchange');
+      console.error(error);
     } finally {
       setIsLoading(false);
     }

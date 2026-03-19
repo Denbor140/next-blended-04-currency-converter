@@ -16,7 +16,7 @@ interface SelectRatesProps {
 }
 
 export default function SelectRates({ baseCurrency }: SelectRatesProps) {
-  const setBaseCurrency = useCurrencyStore((state) => state.setBaseCurrency);
+  const { setBaseCurrency } = useCurrencyStore();
 
   const handleChange = (selectedOption: SingleValue<OptionType>) => {
     if (!selectedOption) return;
